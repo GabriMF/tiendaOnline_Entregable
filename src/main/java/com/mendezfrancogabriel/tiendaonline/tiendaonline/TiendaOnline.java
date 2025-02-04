@@ -34,7 +34,27 @@ public class TiendaOnline implements Serializable {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
+        
     }
+    
+    /*
+    -------------------------------- Menus --------------------------------
+    */
+   
+    public void stock (int unidadesPed, String id) throws StockAgotado, StockInsuficiente{
+        
+        int n = articulos.get(id).getExistencias();
+        
+        if (n==0){
+            throw new StockAgotado("Stock agotado para el articulo "+ articulos.get(id).getDescripcion());
+            
+        }else if(n < unidadesPed){
+            throw new StockInsuficiente("No hay stock suficiente para el pedido. Solicita "
+                    + unidadesPed + " de "+articulos.get(id).getDescripcion() 
+                    + " y solo se dispone de "+n);
+        }
+    }
+   
     
     public void nuevoPedido() {
         //ARRAYLIST AUXILIAR PARA CREAR EL PEDIDO
@@ -115,25 +135,7 @@ public class TiendaOnline implements Serializable {
         }
     }
     
-    
-    
-   
-    public void stock (int unidadesPed, String id) throws StockAgotado, StockInsuficiente{
-        
-        int n = articulos.get(id).getExistencias();
-        
-        if (n==0){
-            throw new StockAgotado("Stock agotado para el articulo "+ articulos.get(id).getDescripcion());
-            
-        }else if(n < unidadesPed){
-            throw new StockInsuficiente("No hay stock suficiente para el pedido. Solicita "
-                    + unidadesPed + " de "+articulos.get(id).getDescripcion() 
-                    + " y solo se dispone de "+n);
-        }
-    }
-   
-    
-    
+      
     public String generaIdPedido(String idCliente){
         
         int contador = 0;
@@ -147,8 +149,8 @@ public class TiendaOnline implements Serializable {
         contador++;
         nuevoId = idCliente + "-" + String.format("%03d", contador) + "/" + LocalDate.now().getYear();
         return nuevoId;
-        
     }
+    
     
     public void cargaDatos(){
         
