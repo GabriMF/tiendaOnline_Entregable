@@ -3,6 +3,7 @@ package com.mendezfrancogabriel.tiendaonline.tiendaonline;
 
 import com.mendezfrancogabriel.tiendaonline.tiendaonline.Excepciones.StockAgotado;
 import com.mendezfrancogabriel.tiendaonline.tiendaonline.Excepciones.StockInsuficiente;
+import com.mendezfrancogabriel.tiendaonline.tiendaonline.metodosAux.MetodosAux;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -29,12 +30,8 @@ public class TiendaOnline implements Serializable {
         this.clientes = clientes;
     }
     
-    
-    
-
     public static void main(String[] args) {
-        System.out.println("Hello World!");
-        
+        System.out.println("Hello World!");    
     }
     
     /*
