@@ -66,6 +66,7 @@ public class TiendaOnline implements Serializable {
             dniT=sc.nextLine().toUpperCase();
             
             if (dniT.isBlank()){
+                System.out.println("DNI en blanco. Saliendo del pedido...");
                 break;
             }
             if (!MetodosAux.validarDni(dniT)){

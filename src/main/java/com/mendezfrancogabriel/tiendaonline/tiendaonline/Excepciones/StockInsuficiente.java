@@ -11,6 +11,6 @@ package com.mendezfrancogabriel.tiendaonline.tiendaonline.Excepciones;
 public class StockInsuficiente extends Exception {
     
     public StockInsuficiente(String cadena){                                                                        
-                 super(cadena); //Llama al constructor de Exception y le pasa el contenido de cadena              
+        super(cadena); //Llama al constructor de Exception y le pasa el contenido de cadena              
     }
 }
