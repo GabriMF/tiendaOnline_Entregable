@@ -149,6 +149,14 @@ public class TiendaOnline implements Serializable {
         return nuevoId;
     }
     
+    public double totalPedido(Pedido p){
+        double total = 0;
+        for(LineaPedido l:p.getCestaCompra()){
+            total+=(articulos.get(l.getIdArticulo()).getPvp()*l.getUnidades());
+        }
+        return total;
+    }
+    
     
     public void cargaDatos(){
         
