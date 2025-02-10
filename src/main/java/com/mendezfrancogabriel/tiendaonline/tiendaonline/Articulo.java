@@ -1,12 +1,14 @@
 
 package com.mendezfrancogabriel.tiendaonline.tiendaonline;
 
+import java.io.Serializable;
+
 /**
  *
  * @author alu15d
  */
 
-public class Articulo {
+public class Articulo implements Comparable<Articulo>{
     
     private String idArticulo;
     private String descripcion;
@@ -53,4 +55,8 @@ public class Articulo {
         this.pvp = pvp;
     }
     
+    @Override
+    public int compareTo(Articulo a) {
+       return this.idArticulo.compareTo(a.getIdArticulo());
+    }
 }

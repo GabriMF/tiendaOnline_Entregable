@@ -4,9 +4,12 @@ package com.mendezfrancogabriel.tiendaonline.tiendaonline;
 import com.mendezfrancogabriel.tiendaonline.tiendaonline.Excepciones.StockAgotado;
 import com.mendezfrancogabriel.tiendaonline.tiendaonline.Excepciones.StockInsuficiente;
 import com.mendezfrancogabriel.tiendaonline.tiendaonline.metodosAux.MetodosAux;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -24,18 +27,143 @@ public class TiendaOnline implements Serializable {
     private HashMap <String, Articulo> articulos;
     private HashMap <String, Cliente> clientes;
 
-    public TiendaOnline(ArrayList<Pedido> pedidos, HashMap<String, Articulo> articulos, HashMap<String, Cliente> clientes) {
-        this.pedidos = pedidos;
-        this.articulos = articulos;
-        this.clientes = clientes;
+    public TiendaOnline() {
+        this.pedidos = new ArrayList();
+        this.articulos = new HashMap();
+        this.clientes = new HashMap();
     }
     
     public static void main(String[] args) {
-        System.out.println("Hello World!");    
+        TiendaOnline tiendaOnline = new TiendaOnline();
+        tiendaOnline.cargaDatos();
+        tiendaOnline.menu(); 
     }
     
     /*
     -------------------------------- Menus --------------------------------
+    */
+
+   public void menu(){
+        int opcion = 0;
+        Scanner sc = new Scanner(System.in);
+        do{
+            System.out.println("");
+            System.out.println("TIENDA\n");
+            System.out.println("1 - ARTICULOS");
+            System.out.println("2 - CLIENTES");
+            System.out.println("3 - PEDIDOS");
+            System.out.println("9 - Salir");
+            opcion = sc.nextInt();
+             
+            switch(opcion){
+                case 1:{
+                    menuArticulos();
+                    break;
+                }
+
+                case 2:{
+                    menuClientes();
+                    break;
+                }
+
+                case 3:{
+                    menuPedidos();
+                    break;
+                }
+            }
+        }while(opcion != 9);
+    }
+
+
+
+    private void menuArticulos() {
+      
+        int opcion = 0;
+        Scanner sc = new Scanner(System.in);
+        do{
+            System.out.println("");
+            System.out.println("ARTICULOS\n");
+            System.out.println("1 - ");
+            System.out.println("2 - LISTA ARTICULOS");
+            System.out.println("9 - Salir");
+            opcion = sc.nextInt();
+             
+            switch(opcion){
+                case 1:{
+                    break;
+                }
+
+                case 2:{
+                    listaArticulos();
+                    break;
+                }
+                
+            }
+        }while(opcion != 9);
+    }  
+    
+    
+
+
+    private void menuClientes() {
+        int opcion = 0;
+        Scanner sc = new Scanner(System.in);
+        do{
+            System.out.println("");
+            System.out.println("CLIENTES\n");
+            System.out.println("1 - NUEVO CLIENTE");
+            System.out.println("2 - LISTA DE CLIENTES");
+            System.out.println("3 - MODIFICAR CLIENTE");
+            System.out.println("4 - BORRAR CLIENTE");
+            System.out.println("9 - Salir");
+            opcion = sc.nextInt();
+             
+            switch(opcion){
+                case 1:{
+                    
+                    break;
+                }
+
+                case 2:{
+                    break;
+                }
+                
+                case 3:{
+                    break;
+                }
+                
+                case 4:{
+                    break;
+                }
+            }
+        }while(opcion != 9);
+    }
+    
+    private void menuPedidos() {
+        int opcion;
+        Scanner sc = new Scanner(System.in);
+        do{
+            System.out.println("");
+            System.out.println("PEDIDOS\n");
+            System.out.println("1 - ");
+            System.out.println("2 - LISTA PEDIDOS ");
+            System.out.println("0 - Salir");
+            opcion = sc.nextInt();
+              
+            switch(opcion){
+                    case 1:{
+                        break;
+                    }
+
+                    case 2:{
+//                        listaPedidos();
+                        break;
+                    }
+                }
+            }while(opcion != 0);
+    }
+    /*
+    
     */
    
     public void stock (int unidadesPed, String id) throws StockAgotado, StockInsuficiente{
@@ -157,6 +285,40 @@ public class TiendaOnline implements Serializable {
         return total;
     }
     
+    public void listarPedidosPorTotal() {
+         
+        pedidos.stream().sorted(Comparator.comparing(p -> totalPedido(p))).forEach(p -> System.out.println(p + "\t - IMPORTE TOTAL:" + totalPedido(p)));      
+    }
+    
+    public void listaArticulos(){
+        ArrayList <Articulo> articulosAux = new ArrayList(articulos.values());
+        Collections.sort(articulosAux);
+        
+        for (Articulo a : articulosAux) {
+            System.out.println(a);
+        }
+        System.out.println("\nDel reves:");
+        Collections.reverse(articulosAux);
+        for (Articulo a : articulosAux) {
+            System.out.println(a);
+        }
+    }
+   
+    /*
+    public void listaPedidos(){
+        Collections.sort(pedidos);
+        
+        for (Pedido p : pedidos) {
+            System.out.println(p);
+        }
+        
+        Collections.reverse(pedidos);
+        
+        for (Pedido p : pedidos) {
+            System.out.println(p);
+        }
+    }
+*/
     
     public void cargaDatos(){
         
