@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @author alu15d
  */
 
-public class Pedido implements Serializable {
+public class Pedido implements Serializable, Comparable <Pedido> {
     
     private String idPedido;
     private Cliente clientePedido;
@@ -58,5 +58,9 @@ public class Pedido implements Serializable {
     public void setCestaCompra(ArrayList<LineaPedido> cestaCompra) {
         this.cestaCompra = cestaCompra;
     }
-    
+
+    @Override
+    public int compareTo(Pedido p) {
+        return this.idPedido.compareTo(p.idPedido);
+    }
 }

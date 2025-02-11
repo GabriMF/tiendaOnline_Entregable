@@ -1,10 +1,6 @@
 
 package com.mendezfrancogabriel.tiendaonline.tiendaonline;
 
-import com.mendezfrancogabriel.tiendaonline.tiendaonline.Excepciones.StockAgotado;
-import com.mendezfrancogabriel.tiendaonline.tiendaonline.Excepciones.StockInsuficiente;
-import com.mendezfrancogabriel.tiendaonline.tiendaonline.metodosAux.MetodosAux;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,6 +9,10 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+
+import com.mendezfrancogabriel.tiendaonline.tiendaonline.Excepciones.StockAgotado;
+import com.mendezfrancogabriel.tiendaonline.tiendaonline.Excepciones.StockInsuficiente;
+import com.mendezfrancogabriel.tiendaonline.tiendaonline.metodosAux.MetodosAux;
 
 /**
  *
@@ -36,135 +36,200 @@ public class TiendaOnline implements Serializable {
     public static void main(String[] args) {
         TiendaOnline tiendaOnline = new TiendaOnline();
         tiendaOnline.cargaDatos();
-        tiendaOnline.menu(); 
+        tiendaOnline.menuPrincipal(); 
     }
     
     /*
     -------------------------------- Menus --------------------------------
     */
 
-   public void menu(){
-        int opcion = 0;
-        Scanner sc = new Scanner(System.in);
-        do{
-            System.out.println("");
-            System.out.println("TIENDA\n");
-            System.out.println("1 - ARTICULOS");
-            System.out.println("2 - CLIENTES");
-            System.out.println("3 - PEDIDOS");
-            System.out.println("9 - Salir");
-            opcion = sc.nextInt();
-             
-            switch(opcion){
+   public void menuPrincipal(){
+        Scanner sc=new Scanner (System.in);
+        int option;
+        do{        
+            System.out.println("""
+            __________________________________________________________________________________________________________
+
+                                                           Menu Principal
+            __________________________________________________________________________________________________________
+
+            Por favor, pulsa alguna de las siguientes opciones:
+
+                    - 1 Para consultas sobre articulos.
+                    - 2 Para consultas sobre clientes.
+                    - 3 Para consultas sobre pedidos.
+
+                    - 0 Para cerrar la aplicacion.
+                                                                                                                        """);
+            option=sc.nextInt();
+            switch (option){
                 case 1:{
                     menuArticulos();
                     break;
-                }
-
+                }    
                 case 2:{
                     menuClientes();
                     break;
-                }
-
+                } 
                 case 3:{
                     menuPedidos();
                     break;
                 }
+                case 0:{
+                    System.out.println("\n\n                            Gracias por probar mi aplicacion!                                    \n"
+                        + "_________________________________________________________________________________________________\n"
+                        + "_________________________________________________________________________________________________\n\n"
+                        + "               #   #   #   ##### #####   #       #     #   # #####  ####  ###   #                \n"
+                        + "               #   #  # #  #       #    # #      #     #   # #     #     #   #  #                \n"
+                        + "               ##### #   # #####   #   #   #     #     #   # ####  #  ## #   #  #                \n"
+                        + "               #   # #####     #   #   #####     #     #   # #     #   # #   #                   \n"
+                        + "               #   # #   # #####   #   #   #     #####  ###  #####  ###   ###   #                \n"
+                        + "_________________________________________________________________________________________________\n"
+                        + "_________________________________________________________________________________________________\n\n");
+                    break;
+                }
+                default :{
+                    System.out.println("Por favor, introduzca una opcion valida");   
+                }
+                
             }
-        }while(opcion != 9);
+        }while (option != 0);
     }
 
-
-
     private void menuArticulos() {
-      
-        int opcion = 0;
-        Scanner sc = new Scanner(System.in);
+        
+        Scanner sc=new Scanner (System.in);
+        int option;
+        
         do{
-            System.out.println("");
-            System.out.println("ARTICULOS\n");
-            System.out.println("1 - ");
-            System.out.println("2 - LISTA ARTICULOS");
-            System.out.println("9 - Salir");
-            opcion = sc.nextInt();
-             
-            switch(opcion){
+            System.out.println("""
+            __________________________________________________________________________________________________________
+
+                                                           Menu Articulos
+            __________________________________________________________________________________________________________
+
+            Por favor, pulsa alguna de las siguientes opciones:
+
+                    - 1 Para agregar un articulo.
+                    - 2 Para eliminar un articulo.
+                    - 3 Para modificar un cliente.
+                    - 4 Para consultar el listado de articulos.
+
+                    - 0 Para volver al menu principal.
+                                                                                                                        """);
+            option=sc.nextInt();
+            switch (option){
                 case 1:{
+                    System.out.println("\n...Coming soon!\n");
                     break;
                 }
-
                 case 2:{
-                    listaArticulos();
+                    System.out.println("\n...Coming soon!\n");
                     break;
                 }
-                
-            }
-        }while(opcion != 9);
-    }  
-    
-    
-
-
-    private void menuClientes() {
-        int opcion = 0;
-        Scanner sc = new Scanner(System.in);
-        do{
-            System.out.println("");
-            System.out.println("CLIENTES\n");
-            System.out.println("1 - NUEVO CLIENTE");
-            System.out.println("2 - LISTA DE CLIENTES");
-            System.out.println("3 - MODIFICAR CLIENTE");
-            System.out.println("4 - BORRAR CLIENTE");
-            System.out.println("9 - Salir");
-            opcion = sc.nextInt();
-             
-            switch(opcion){
-                case 1:{
-                    
-                    break;
-                }
-
-                case 2:{
-                    break;
-                }
-                
                 case 3:{
+                    System.out.println("\n...Coming soon!\n");
                     break;
                 }
-                
                 case 4:{
-                    break;
+                    listaArticulos();
                 }
             }
-        }while(opcion != 9);
+        }while (option != 0);
+    }  
+  
+    private void menuClientes() {
+        
+        Scanner sc=new Scanner (System.in);
+        int option;
+        
+        do{
+            System.out.println("""
+            __________________________________________________________________________________________________________
+
+                                                           Menu Clientes
+            __________________________________________________________________________________________________________
+
+            Por favor, pulsa alguna de las siguientes opciones:
+
+                    - 1 Para agregar un nuevo cliente.
+                    - 2 Para eliminar un cliente.
+                    - 3 Para modificar un cliente.
+                    - 4 Para consultar el listado de clientes.
+
+                    - 0 Para volver al menu principal.
+                                                                                                                        """);
+            option=sc.nextInt();
+            switch (option){
+                case 1:{
+                    System.out.println("\n...Coming soon!\n");
+                    break;
+                }    
+                case 2:{
+                    System.out.println("\n...Coming soon!\n");
+                    break;
+                } 
+                case 3:{
+                    System.out.println("\n...Coming soon!\n");
+                    break;
+                } 
+                case 4:{
+                    System.out.println("\n...Coming soon!\n");
+                    break;
+                } 
+            }
+        }while (option != 0);
     }
     
     private void menuPedidos() {
-        int opcion;
-        Scanner sc = new Scanner(System.in);
+        
+        Scanner sc=new Scanner (System.in);
+        int option;
+        
         do{
-            System.out.println("");
-            System.out.println("PEDIDOS\n");
-            System.out.println("1 - ");
-            System.out.println("2 - LISTA PEDIDOS ");
-            System.out.println("0 - Salir");
-            opcion = sc.nextInt();
-              
-            switch(opcion){
-                    case 1:{
-                        break;
-                    }
+            System.out.println("""
+            __________________________________________________________________________________________________________
 
-                    case 2:{
-//                        listaPedidos();
-                        break;
-                    }
+                                                           Menu Pedidos
+            __________________________________________________________________________________________________________
+
+            Por favor, pulsa alguna de las siguientes opciones:
+
+                    - 1 Para agregar un pedido.
+                    - 2 Para eliminar un pedido.
+                    - 3 Para modificar un pedido.
+                    - 4 Para consultar el listado de pedidos.
+                    - 5 Para consultar el listado de pedidos en
+                        base a su cantidad.
+
+                    - 0 Para volver al menu principal.
+                                                                                                                        """);
+            option=sc.nextInt();
+            switch (option){
+                case 1:{
+                    nuevoPedido();
+                    break;
+                }    
+                case 2:{
+                    System.out.println("\n...Coming soon!\n");
+                    break;
+                } 
+                case 3:{
+                    System.out.println("\n...Coming soon!\n");
+                    break;
+                } 
+                case 4:{
+                    listaPedidos();
+                    break;
                 }
-            }while(opcion != 0);
+                case 5:{
+                    listarPedidosPorTotal();
+                    break;
+                }
+            }
+        }while (option != 0);
     }
-    /*
     
-    */
    
     public void stock (int unidadesPed, String id) throws StockAgotado, StockInsuficiente{
         
@@ -175,43 +240,49 @@ public class TiendaOnline implements Serializable {
             
         }else if(n < unidadesPed){
             throw new StockInsuficiente("No hay stock suficiente para el pedido. Solicita "
-                    + unidadesPed + " de "+articulos.get(id).getDescripcion() 
-                    + " y solo se dispone de "+n);
+                    + unidadesPed + " unidades de "+articulos.get(id).getDescripcion() 
+                    + " y solo se dispone de "+n+".");
         }
     }
    
-    
     public void nuevoPedido() {
         //ARRAYLIST AUXILIAR PARA CREAR EL PEDIDO
         ArrayList<LineaPedido> CestaCompraAux = new ArrayList();
         String dniT, idT, opc, pedidasS;
         int pedidas=0;
        
+        System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n"
+                        + "                 Bienvenido a la compra de un nuevo pedido\n"
+                        + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
+        System.out.println("Pulse enter para continuar...\n");
         sc.nextLine();
        
         do{
-            System.out.println("CLIENTE PEDIDO (DNI):");
+            System.out.println("Introduzca su DNI, por favor:");
             dniT=sc.nextLine().toUpperCase();
             
             if (dniT.isBlank()){
                 System.out.println("DNI en blanco. Saliendo del pedido...");
                 break;
             }
-            if (!MetodosAux.validarDni(dniT)){
-                System.out.println("El DNI no es un DNI válido");
+            if (!MetodosAux.validarDni(dniT)|| !clientes.containsKey(dniT)){
+                System.out.println("El DNI no es un DNI válido. Intentelo de nuevo, por favor.");
             }
         }while (!clientes.containsKey(dniT));
         
         if (!dniT.isBlank()){
           
-            System.out.println("INTRODUZCA LOS ARTÍCULOS DEL PEDIDO UNO A UNO: ");
+            System.out.println("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n"
+                        + "                    Bienvenido/a, "+ clientes.get(dniT).getNombre() + "\n"
+                        + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
             
             do{
-                System.out.println("INTRODUCE CODIGO ARTICULO (99 PARA TERMINAR): ");
+                System.out.println("\nPor favor, introduzca el identificador del articulo deseado:\n"
+                        + "(Introduzca '00' para terminar) ");
                 idT=sc.next();
                 
-                if (!idT.equals("99") && articulos.containsKey(idT)){
-                    System.out.print("(" + articulos.get(idT).getDescripcion()+ ") - UNIDADES? ");
+                if (!idT.equals("00") && articulos.containsKey(idT)){
+                    System.out.print("(" + articulos.get(idT).getDescripcion()+ ") - Cuantas unidades desea? ");
                     
                     do {
                         pedidasS=sc.next();
@@ -231,7 +302,7 @@ public class TiendaOnline implements Serializable {
                         System.out.println(e.getMessage());
                         int disponibles=articulos.get(idT).getExistencias();
                         
-                        System.out.print("QUIERES LAS " + disponibles + " UNIDADES DISPONIBLES? (S/N) ");
+                        System.out.print("Desea las " + disponibles + " unidades disponibles? (S/N) ");
                         opc=sc.next();
                         
                         if (opc.equalsIgnoreCase("S")){
@@ -239,14 +310,18 @@ public class TiendaOnline implements Serializable {
                         }
                     }  
                 }
-            }while (!idT.equals("99"));
+            }while (!idT.equals("00"));
          
             //IMPRIMO EL PEDIDO Y SOLICITO ACEPTACION DEFINITIVA DEL MISMO 
+            System.out.println("El pedido seleccionado es el siguiente.");
+            System.out.println("____________________________________________________________________________\n");
             for (LineaPedido l:CestaCompraAux){
                 System.out.println(articulos.get(l.getIdArticulo()).getDescripcion() + " - ("+ l.getUnidades() + ")");
             }
+            System.out.println("____________________________________________________________________________\n");
+
             
-            System.out.println("ESTE ES TU PEDIDO. PROCEDEMOS? (S/N)   ");
+            System.out.println("Desea confirmar el pedido? (S/N)");
             opc=sc.next();
             
             if (opc.equalsIgnoreCase("S")){
@@ -259,8 +334,7 @@ public class TiendaOnline implements Serializable {
                 } 
             }
         }
-    }
-    
+    } 
       
     public String generaIdPedido(String idCliente){
         
@@ -304,7 +378,7 @@ public class TiendaOnline implements Serializable {
         }
     }
    
-    /*
+    
     public void listaPedidos(){
         Collections.sort(pedidos);
         
@@ -318,7 +392,7 @@ public class TiendaOnline implements Serializable {
             System.out.println(p);
         }
     }
-*/
+
     
     public void cargaDatos(){
         
