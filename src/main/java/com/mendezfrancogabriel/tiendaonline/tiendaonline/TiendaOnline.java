@@ -229,7 +229,6 @@ public class TiendaOnline implements Serializable {
             }
         }while (option != 0);
     }
-    
    
     public void stock (int unidadesPed, String id) throws StockAgotado, StockInsuficiente{
         
@@ -361,7 +360,13 @@ public class TiendaOnline implements Serializable {
     
     public void listarPedidosPorTotal() {
          
-        pedidos.stream().sorted(Comparator.comparing(p -> totalPedido(p))).forEach(p -> System.out.println(p + "\t - IMPORTE TOTAL:" + totalPedido(p)));      
+        pedidos.stream().sorted(Comparator.comparing(p -> totalPedido((Pedido)p)).reversed()).forEach(p -> System.out.println(p + "\t - IMPORTE TOTAL:" + totalPedido(p)));  
+        
+        //Si fuese un HasMap, se haría así:
+        //pedidos.values().stream().sorted([...]
+        
+        //A completar con codigo teams 
+        //pedidos.stream().filter(p-> p.getClientePedido().getNombre().equals("ANA"))
     }
     
     public void listaArticulos(){
