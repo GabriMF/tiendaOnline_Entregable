@@ -229,6 +229,10 @@ public class TiendaOnline implements Serializable {
             }
         }while (option != 0);
     }
+    
+    /*
+    -----------------------------------------------------------------------
+    */
    
     public void stock (int unidadesPed, String id) throws StockAgotado, StockInsuficiente{
         
