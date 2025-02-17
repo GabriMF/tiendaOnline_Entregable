@@ -372,7 +372,17 @@ public class TiendaOnline implements Serializable {
         //A completar con codigo teams 
         //pedidos.stream().filter(p-> p.getClientePedido().getNombre().equals("ANA"))
     }
-    
+   /* 
+    public void listarPorUnidadesVendidas(){
+        
+        for (Articulo art : articulos) {
+            art.getIdArticulo();
+            
+        }
+        
+        
+    }
+    */
     public void listaArticulos(){
         ArrayList <Articulo> articulosAux = new ArrayList(articulos.values());
         Collections.sort(articulosAux);
