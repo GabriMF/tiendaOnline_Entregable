@@ -1,6 +1,9 @@
 
 package com.mendezfrancogabriel.tiendaonline.tiendaonline.metodosAux;
 
+import java.util.Scanner;
+import com.mendezfrancogabriel.tiendaonline.tiendaonline.TiendaOnline;
+
 /**
  *
  * @author alu15d
@@ -51,6 +54,14 @@ public class MetodosAux {
             
         }
     }
+    
+    public static String solicitaIdArticulo(){
+        Scanner sc=new Scanner(System.in);
+        String idArticulo=sc.next();
+        return idArticulo;
+    }
+    
+
     
     
 }

@@ -1,12 +1,14 @@
 
 package com.mendezfrancogabriel.tiendaonline.tiendaonline;
 
+import java.io.Serializable;
+
 /**
  *
  * @author alu15d
  */
 
-public class Cliente {
+public class Cliente implements Serializable {
     
     private String dni;
     private String nombre;
