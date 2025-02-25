@@ -41,6 +41,20 @@ public class TiendaOnline implements Serializable {
         this.articulos = new HashMap();
         this.clientes = new HashMap();
     }
+
+    public ArrayList<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public HashMap<String, Articulo> getArticulos() {
+        return articulos;
+    }
+
+    public HashMap<String, Cliente> getClientes() {
+        return clientes;
+    }
+    
+    
     
     public static void main(String[] args) {
         TiendaOnline tiendaOnline = new TiendaOnline();
@@ -297,6 +311,7 @@ public class TiendaOnline implements Serializable {
             + "                 El articulo "+ articulos.get(posicionArticulo).getDescripcion() + ", con ID " + articulos.get(posicionArticulo).getIdArticulo() +" se ha modificado a correctamente.\n"
             + "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
     }
+    
     public void listaArticulos(){
         ArrayList <Articulo> articulosAux = new ArrayList(articulos.values());
         Collections.sort(articulosAux);
