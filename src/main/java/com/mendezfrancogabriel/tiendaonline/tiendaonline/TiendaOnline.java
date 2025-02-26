@@ -13,10 +13,13 @@ import java.util.Scanner;
 import com.mendezfrancogabriel.tiendaonline.tiendaonline.Excepciones.StockAgotado;
 import com.mendezfrancogabriel.tiendaonline.tiendaonline.Excepciones.StockInsuficiente;
 import com.mendezfrancogabriel.tiendaonline.tiendaonline.metodosAux.MetodosAux;
+import java.io.BufferedWriter;
 import java.io.EOFException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -520,6 +523,7 @@ public class TiendaOnline implements Serializable {
     /*
         -------------------------------- Persistencia --------------------------------
     */    
+    // Guarda Archivos todos juntos
     public void guardarArchivos(){
         try(ObjectOutputStream oosArticulos = new ObjectOutputStream(new FileOutputStream("articulos.dat"));
             ObjectOutputStream oosClientes = new ObjectOutputStream(new FileOutputStream("clientes.dat"));
@@ -542,6 +546,7 @@ public class TiendaOnline implements Serializable {
         
     }
     
+    // Lee Archivos todos juntos
     public void leerArchivos(){
         try(ObjectInputStream oisArticulos = new ObjectInputStream(new FileInputStream("articulos.dat"));
             ObjectInputStream oisClientes = new ObjectInputStream(new FileInputStream("clientes.dat"));
@@ -571,6 +576,213 @@ public class TiendaOnline implements Serializable {
             Logger.getLogger(TiendaOnline.class.getName()).log(Level.SEVERE, null, e);
         }
     }
+    
+    /*  Metodo de edu
+    // Guarda archivos uno a uno.
+    public void backup() {
+        try (ObjectOutputStream oosArticulos = new ObjectOutputStream(new FileOutputStream("articulos.dat"));
+            ObjectOutputStream oosClientes = new ObjectOutputStream(new FileOutputStream("clientes.dat"));
+            ObjectOutputStream oosPedidos = new ObjectOutputStream (new FileOutputStream("pedidos.dat"))) {
+	   	   
+            for (Articulo a : articulos.values()) {
+                oosArticulos.writeObject(a);
+            }
+            for (Cliente c:clientes.values()) {
+                oosClientes.writeObject(c);
+            }
+            for (Pedido p:pedidos){
+                 oosPedidos.writeObject(p);
+            }
+            System.out.println("Copia de seguridad realizada con éxito.");
+	    
+        } catch (FileNotFoundException e) {
+                 System.out.println(e.toString());                                                          
+        } catch (IOException e) {
+                 System.out.println(e.toString());
+        } 
+    } 
+    
+    //Lee archivos uno a uno.
+    public void leerArchivos() {
+        try (ObjectInputStream oisArticulos = new ObjectInputStream(new FileInputStream("articulos.dat"))){
+            Articulo a;
+            while ( (a=(Articulo)oisArticulos.readObject()) != null){
+                 articulos.put(a.getIdArticulo(), a);
+            } 
+	} catch (FileNotFoundException e) {
+                 System.out.println(e.toString());    
+        } catch (EOFException e){
+            
+        } catch (ClassNotFoundException | IOException e) {
+                System.out.println(e.toString()); 
+        } 
+        
+        try (ObjectInputStream oisClientes = new ObjectInputStream(new FileInputStream("clientes.dat"))){
+            Cliente c;
+            while ( (c=(Cliente)oisClientes.readObject()) != null){
+                 clientes.put(c.getDni(), c);
+            } 
+	} catch (FileNotFoundException e) {
+                 System.out.println(e.toString());    
+        } catch (EOFException e){
+            
+        } catch (ClassNotFoundException | IOException e) {
+                System.out.println(e.toString()); 
+        }
+        
+        
+        try (ObjectInputStream oisPedidos = new ObjectInputStream(new FileInputStream("pedidos.dat"))){
+            Pedido p;
+            while ( (p=(Pedido)oisPedidos.readObject()) != null){
+                 pedidos.add(p);
+            } 
+	} catch (FileNotFoundException e) {
+                 System.out.println(e.toString());    
+        } catch (EOFException e){
+            
+        } catch (ClassNotFoundException | IOException e) {
+                System.out.println(e.toString()); 
+        }
+       
+    }   
+    
+    */
+    
+        /* MÉTODOS PARA PERSISTENCIA DE CLIENTES EN UN ARCHIVO DE TEXTO .csv */
+    /*
+    public void clientesTxtBackup() {
+        try(BufferedWriter bfwClientes=new BufferedWriter(new FileWriter("clientes.csv"))){
+            for (Cliente c : clientes.values()) {
+                bfwClientes.write(c.getDni() + "," + c.getNombre() + "," + c.getTelefono() + "," + c.getEmail() + "\n");
+            }
+        }catch (FileNotFoundException e) {
+                 System.out.println(e.toString());   
+        }catch(IOException e){
+            System.out.println(e.toString());
+        }
+    }  
+    
+    public void clientesTxtLeer() {
+        // LEEMOS LOS CLIENTES DESDE EL ARCHIVO .csv A UNA COLECCION HASHMAP AUXILIAR Y LA IMPRIMIMOS
+        HashMap <String,Cliente> clientesAux = new HashMap();
+        try(Scanner scClientes=new Scanner(new File("clientes.csv"))){
+            while (scClientes.hasNextLine()){
+                String [] atributos = scClientes.nextLine().split("[,]");                                                              
+                Cliente c=new Cliente(atributos[0],atributos[1],atributos[2],atributos[3]); 
+                clientesAux.put(atributos[0], c);
+            }
+        }catch(IOException e){
+            System.out.println(e.toString());
+        }
+        clientesAux.values().forEach(System.out::println);
+    }  
+    */
+    
+       /* METODO PARA HACER UN BACKUP DE LOS ARTICULOS EN 4 ARCHIVOS DIFERENTES SEGUN LA SECCION A LA QUE PERTENECEN (primera letra de su ID) */
+
+    /*
+    public void backupPorSeccion() {
+        try (ObjectOutputStream oosPerifericos = new ObjectOutputStream(new FileOutputStream("Perifericos.dat"));
+            ObjectOutputStream oosAlmacenamiento = new ObjectOutputStream(new FileOutputStream("Almacenamiento.dat"));
+            ObjectOutputStream oosImpresoras = new ObjectOutputStream(new FileOutputStream("Impresoras.dat"));
+            ObjectOutputStream oosMonitores = new ObjectOutputStream (new FileOutputStream("Monitores.dat"))) {
+	   	   
+            for (Articulo a : articulos.values()) {
+                char seccion=a.getIdArticulo().charAt(0);
+                switch (seccion) {
+                    case '1':
+                        oosPerifericos.writeObject(a);
+                        break;
+                    case '2':
+                        oosAlmacenamiento .writeObject(a);
+                        break;
+                    case '3':
+                        oosImpresoras.writeObject(a);
+                        break;
+                    case '4':
+                        oosMonitores.writeObject(a);
+                        break;
+                }
+            }
+            System.out.println("Copia de seguridad realizada con éxito.");
+	    
+        } catch (FileNotFoundException e) {
+                 System.out.println(e.toString());                                                          
+        } catch (IOException e) {
+                 System.out.println(e.toString());
+        } 
+        */
+        /* PARA COMPROBAR QUE FUNCIONA, VERIFICAMOS QUE SE HAN CREADO LOS 4 ARCHIVOS EN LA CARPETA
+        RAÍZ DEL PROYECTO CON LA FECHA Y HORA ACTUAL - 
+        ... Y PARA COMPROBAR EL CONTENIDO DE LOS ARCHIVOS LEEREMOS/IMPRIMIREMOS "AL VUELO" SÓLO 1 DE ELLOS
+         CUYA SECCION SOLICITAMOS POR TECLADO
+        */
+        /*        
+        System.out.println("Teclea la Seccion de los articulos CUYO ARCHIVO QUIERES COMPROBAR:");        
+        char seccion=sc.next().charAt(0);
+        String nombreArchivo=null;
+        switch (seccion) {
+                    case '1':
+                        nombreArchivo="Perifericos.dat";
+                        break;
+                    case '2':
+                        nombreArchivo="Almacenamiento.dat";
+                        break;
+                    case '3':
+                        nombreArchivo="Impresoras.dat";
+                        break;
+                    case '4':
+                        nombreArchivo="Monitores.dat";
+                        break;
+        }
+        Articulo a;
+        try (ObjectInputStream oisArticulos = new ObjectInputStream(new FileInputStream(nombreArchivo))){
+            while ( (a=(Articulo)oisArticulos.readObject()) != null){
+                System.out.println(a);
+            } 
+        } catch (FileNotFoundException e) {
+                 System.out.println(e.toString());    
+        } catch (EOFException e){
+            
+        } catch (ClassNotFoundException | IOException e) {
+                System.out.println(e.toString()); 
+        } 
+    }  
+    */
+    
+    /* METODO PARA LEER DESDE EL ARCHIVO articulos.dat SÓLO LOS ARTICULOS DE UNA DETERMINADA SECCION INTRODUCIDA POR TECLADO
+
+       LOS ARTICULOS DE LA SECCION ELEGIDA SE VAN CARGANDO EN UN ARRAYLIST AUXILIAR (articulosAux) Y SE MUESTRAN POR PANTALLA
+     */
+
+    /*
+    public void leerArchivosSeccion() {
+        System.out.println("Teclea la Seccion de los articulos que quieres recuperar:");        
+        String id=sc.next();
+        ArrayList<Articulo> articulosAux= new ArrayList();
+        Articulo a;
+        
+        try (ObjectInputStream oisArticulos = new ObjectInputStream(new FileInputStream("articulos.dat"))){
+            while ( (a=(Articulo)oisArticulos.readObject()) != null){
+                if (id.equals("5")){
+                    articulosAux.add(a);
+                }else if (a.getIdArticulo().startsWith(id)){
+                    articulosAux.add(a);
+                }
+            } 
+        } catch (FileNotFoundException e) {
+                 System.out.println(e.toString());    
+        } catch (EOFException e){
+            
+        } catch (ClassNotFoundException | IOException e) {
+                System.out.println(e.toString()); 
+        } 
+        
+        articulosAux.forEach(System.out::println);
+    }
+    */
+    
+    
     
     /*
     -------------------------------- Otros Auxiliares --------------------------------
