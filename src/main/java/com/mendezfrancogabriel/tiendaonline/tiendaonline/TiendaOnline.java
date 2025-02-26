@@ -1,6 +1,13 @@
 
 package com.mendezfrancogabriel.tiendaonline.tiendaonline;
 
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -9,22 +16,15 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.mendezfrancogabriel.tiendaonline.tiendaonline.Excepciones.StockAgotado;
 import com.mendezfrancogabriel.tiendaonline.tiendaonline.Excepciones.StockInsuficiente;
 import com.mendezfrancogabriel.tiendaonline.tiendaonline.metodosAux.MetodosAux;
 import java.io.BufferedWriter;
-import java.io.EOFException;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -62,9 +62,11 @@ public class TiendaOnline implements Serializable {
     public static void main(String[] args) {
         TiendaOnline tiendaOnline = new TiendaOnline();
         //tiendaOnline.cargaDatos();
-        tiendaOnline.leerArchivos();
+        tiendaOnline.leerArchivosGeneral();
+        tiendaOnline.leerArchivosUnoaUno();
         tiendaOnline.menuPrincipal();   
-        //tiendaOnline.guardarArchivos();
+        tiendaOnline.guardarArchivosGeneral();
+        tiendaOnline.guardarArchivosUnoaUno();
     }
     
     /*
@@ -524,10 +526,10 @@ public class TiendaOnline implements Serializable {
         -------------------------------- Persistencia --------------------------------
     */    
     // Guarda Archivos todos juntos
-    public void guardarArchivos(){
-        try(ObjectOutputStream oosArticulos = new ObjectOutputStream(new FileOutputStream("articulos.dat"));
-            ObjectOutputStream oosClientes = new ObjectOutputStream(new FileOutputStream("clientes.dat"));
-            ObjectOutputStream oosPedidos = new ObjectOutputStream(new FileOutputStream("pedidos.dat"))){
+    public void guardarArchivosGeneral(){
+        try(ObjectOutputStream oosArticulos = new ObjectOutputStream(new FileOutputStream("articulosGeneral.dat"));
+            ObjectOutputStream oosClientes = new ObjectOutputStream(new FileOutputStream("clientesGeneral.dat"));
+            ObjectOutputStream oosPedidos = new ObjectOutputStream(new FileOutputStream("pedidosGeneral.dat"))){
             
             //Colecciones Completas
             oosArticulos.writeObject(articulos);
@@ -537,7 +539,7 @@ public class TiendaOnline implements Serializable {
             for(Pedido p : pedidos){
                 oosPedidos.writeObject(p);
             }
-            System.out.println("copia de seguridad realizada con exito.");
+            System.out.println("copia de seguridad general realizada con exito.");
         }catch(FileNotFoundException e){
             System.out.println(e.toString());
         }catch(IOException e){
@@ -547,10 +549,10 @@ public class TiendaOnline implements Serializable {
     }
     
     // Lee Archivos todos juntos
-    public void leerArchivos(){
-        try(ObjectInputStream oisArticulos = new ObjectInputStream(new FileInputStream("articulos.dat"));
-            ObjectInputStream oisClientes = new ObjectInputStream(new FileInputStream("clientes.dat"));
-            ObjectInputStream oisPedidos = new ObjectInputStream(new FileInputStream("pedidos.dat"))){
+    public void leerArchivosGeneral(){
+        try(ObjectInputStream oisArticulos = new ObjectInputStream(new FileInputStream("articulosGeneral.dat"));
+            ObjectInputStream oisClientes = new ObjectInputStream(new FileInputStream("clientesGeneral.dat"));
+            ObjectInputStream oisPedidos = new ObjectInputStream(new FileInputStream("pedidosGeneral.dat"))){
             
             //Colecciones Completas
             articulos = (HashMap <String, Articulo>) oisArticulos.readObject();
@@ -577,12 +579,12 @@ public class TiendaOnline implements Serializable {
         }
     }
     
-    /*  Metodo de edu
+    //---------- Metodo de edu ----------
     // Guarda archivos uno a uno.
-    public void backup() {
-        try (ObjectOutputStream oosArticulos = new ObjectOutputStream(new FileOutputStream("articulos.dat"));
-            ObjectOutputStream oosClientes = new ObjectOutputStream(new FileOutputStream("clientes.dat"));
-            ObjectOutputStream oosPedidos = new ObjectOutputStream (new FileOutputStream("pedidos.dat"))) {
+    public void guardarArchivosUnoaUno() {
+        try (ObjectOutputStream oosArticulos = new ObjectOutputStream(new FileOutputStream("articulosIndividual.dat"));
+            ObjectOutputStream oosClientes = new ObjectOutputStream(new FileOutputStream("clientesIndividual.dat"));
+            ObjectOutputStream oosPedidos = new ObjectOutputStream (new FileOutputStream("pedidosIndividual.dat"))) {
 	   	   
             for (Articulo a : articulos.values()) {
                 oosArticulos.writeObject(a);
@@ -593,7 +595,7 @@ public class TiendaOnline implements Serializable {
             for (Pedido p:pedidos){
                  oosPedidos.writeObject(p);
             }
-            System.out.println("Copia de seguridad realizada con éxito.");
+            System.out.println("Copia de seguridad uno a uno realizada con exito.");
 	    
         } catch (FileNotFoundException e) {
                  System.out.println(e.toString());                                                          
@@ -603,8 +605,8 @@ public class TiendaOnline implements Serializable {
     } 
     
     //Lee archivos uno a uno.
-    public void leerArchivos() {
-        try (ObjectInputStream oisArticulos = new ObjectInputStream(new FileInputStream("articulos.dat"))){
+    public void leerArchivosUnoaUno() {
+        try (ObjectInputStream oisArticulos = new ObjectInputStream(new FileInputStream("articulosIndividual.dat"))){
             Articulo a;
             while ( (a=(Articulo)oisArticulos.readObject()) != null){
                  articulos.put(a.getIdArticulo(), a);
@@ -617,7 +619,7 @@ public class TiendaOnline implements Serializable {
                 System.out.println(e.toString()); 
         } 
         
-        try (ObjectInputStream oisClientes = new ObjectInputStream(new FileInputStream("clientes.dat"))){
+        try (ObjectInputStream oisClientes = new ObjectInputStream(new FileInputStream("clientesIndividual.dat"))){
             Cliente c;
             while ( (c=(Cliente)oisClientes.readObject()) != null){
                  clientes.put(c.getDni(), c);
@@ -631,7 +633,7 @@ public class TiendaOnline implements Serializable {
         }
         
         
-        try (ObjectInputStream oisPedidos = new ObjectInputStream(new FileInputStream("pedidos.dat"))){
+        try (ObjectInputStream oisPedidos = new ObjectInputStream(new FileInputStream("pedidosIndividual.dat"))){
             Pedido p;
             while ( (p=(Pedido)oisPedidos.readObject()) != null){
                  pedidos.add(p);
@@ -646,10 +648,12 @@ public class TiendaOnline implements Serializable {
        
     }   
     
+    
+    
+    /* 
+    ---------- MÉTODOS PARA PERSISTENCIA DE CLIENTES EN UN ARCHIVO DE TEXTO .csv ----------
     */
     
-        /* MÉTODOS PARA PERSISTENCIA DE CLIENTES EN UN ARCHIVO DE TEXTO .csv */
-    /*
     public void clientesTxtBackup() {
         try(BufferedWriter bfwClientes=new BufferedWriter(new FileWriter("clientes.csv"))){
             for (Cliente c : clientes.values()) {
@@ -676,7 +680,7 @@ public class TiendaOnline implements Serializable {
         }
         clientesAux.values().forEach(System.out::println);
     }  
-    */
+    
     
        /* METODO PARA HACER UN BACKUP DE LOS ARTICULOS EN 4 ARCHIVOS DIFERENTES SEGUN LA SECCION A LA QUE PERTENECEN (primera letra de su ID) */
 
