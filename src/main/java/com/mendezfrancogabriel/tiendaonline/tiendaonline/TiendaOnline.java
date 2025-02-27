@@ -613,7 +613,7 @@ public class TiendaOnline implements Serializable {
        
     }   
      
-    //  ----- METODO PARA HACER UN BACKUP DE LOS ARTICULOS EN 4 ARCHIVOS DIFERENTES SEGUN LA SECCION A LA QUE PERTENECEN (primera letra de su ID) -----
+    //  ----- Metodo para hacer un backup de los articulos en 4 archivos diferentes segun la seccion a la que pertenecen (Primera letra de su ID) -----
     public void backupPorSeccion() {
         try (ObjectOutputStream oosPerifericos = new ObjectOutputStream(new FileOutputStream("Perifericos.dat"));
             ObjectOutputStream oosAlmacenamiento = new ObjectOutputStream(new FileOutputStream("Almacenamiento.dat"));
@@ -646,10 +646,11 @@ public class TiendaOnline implements Serializable {
         } 
         
         
-        /* PARA COMPROBAR QUE FUNCIONA, VERIFICAMOS QUE SE HAN CREADO LOS 4 ARCHIVOS EN LA CARPETA
-        RAÍZ DEL PROYECTO CON LA FECHA Y HORA ACTUAL - 
-        ... Y PARA COMPROBAR EL CONTENIDO DE LOS ARCHIVOS LEEREMOS/IMPRIMIREMOS "AL VUELO" SÓLO 1 DE ELLOS
-         CUYA SECCION SOLICITAMOS POR TECLADO
+        /*
+        Para comprobar que funciona, verificamos que se han creado los 4 archivos en la carpeta
+        raiz del proyecto con la fecha y hora actual - 
+        ... y para comprobar el contenido de los archivos leeremos/imprimiremos "al vuelo" solo 1 de ellos
+         cuya seccion solicitamos por teclado.
         */
                
         System.out.println("Teclea la Seccion de los articulos CUYO ARCHIVO QUIERES COMPROBAR:");        
@@ -683,8 +684,8 @@ public class TiendaOnline implements Serializable {
         } 
     }   
 
-    //  ------ METODO PARA LEER DESDE EL ARCHIVO articulos.dat SÓLO LOS ARTICULOS DE UNA DETERMINADA SECCION INTRODUCIDA POR TECLADO. -----
-    //  ------ LOS ARTICULOS DE LA SECCION ELEGIDA SE VAN CARGANDO EN UN ARRAYLIST AUXILIAR (articulosAux) Y SE MUESTRAN POR PANTALLA. -----  
+    //  ------ Metodo para leer desde el archivo articulos.dat solo los articulos de una determinaad seccion introducida por teclado. -----
+    //  ------ Los articulos de la seccion elegida se van cargando en un arraylist auxiliar (articulosAux) y se muestran por pantalla. -----  
     public void leerArchivosSeccion() {
         System.out.println("Teclea la Seccion de los articulos que quieres recuperar:");        
         String id=sc.next();
@@ -710,7 +711,7 @@ public class TiendaOnline implements Serializable {
         articulosAux.forEach(System.out::println);
     }
     
-    //    ---------- MÉTODOS PARA PERSISTENCIA DE CLIENTES EN UN ARCHIVO DE TEXTO .csv ----------
+    //    ---------- Metodos para persistencia de clientes en un archivo de texto '.csv' ----------
     public void clientesTxtBackup() {
         try(BufferedWriter bfwClientes=new BufferedWriter(new FileWriter("clientes.csv"))){
             for (Cliente c : clientes.values()) {
@@ -724,7 +725,7 @@ public class TiendaOnline implements Serializable {
     }  
     
     public void clientesTxtLeer() {
-        // LEEMOS LOS CLIENTES DESDE EL ARCHIVO .csv A UNA COLECCION HASHMAP AUXILIAR Y LA IMPRIMIMOS
+        // Leemos los clientes desde el archivo '.csv' a una coleccion hashmap auxiliar y la imprimimos
         HashMap <String,Cliente> clientesAux = new HashMap();
         try(Scanner scClientes=new Scanner(new File("clientes.csv"))){
             while (scClientes.hasNextLine()){
