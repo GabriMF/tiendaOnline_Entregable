@@ -326,7 +326,10 @@ public class TiendaOnline implements Serializable {
                                 -------------------------------- Clientes --------------------------------
         ____________________________________________________________________________________________________________________________________
     */
-    
+    public double totalCliente(Cliente c){
+        return pedidos.stream().filter(p->p.getClientePedido().equals(c)).mapToDouble(p->p.getCestaCompra().stream()
+        .mapToDouble(lp->lp.getUnidades()* articulos.get(lp.getIdArticulo()).getPvp()).sum()).sum();
+    }
     
     /*  ____________________________________________________________________________________________________________________________________
     
@@ -451,11 +454,15 @@ public class TiendaOnline implements Serializable {
          
         pedidos.stream().sorted(Comparator.comparing(p -> totalPedido((Pedido)p)).reversed()).forEach(p -> System.out.println(p + "\t - IMPORTE TOTAL:" + totalPedido(p)));  
         
-        //Si fuese un HasMap, se haría así:
-        //pedidos.values().stream().sorted([...]
+        /*---------------------------------------
+        | Si fuese un HasMap, se haría así:      |
+        | pedidos.values().stream().sorted([...] |
+         ---------------------------------------*/
         
-        //A completar con codigo teams 
-        //pedidos.stream().filter(p-> p.getClientePedido().getNombre().equals("ANA"))
+        /*----------------------------------------------------------------------------
+        | A completar con codigo teams                                                |
+        | pedidos.stream().filter(p-> p.getClientePedido().getNombre().equals("ANA")) |
+         ----------------------------------------------------------------------------*/
     }
  
     public void listaPedidos(){
@@ -613,7 +620,11 @@ public class TiendaOnline implements Serializable {
        
     }   
      
-    //  ----- Metodo para hacer un backup de los articulos en 4 archivos diferentes segun la seccion a la que pertenecen (Primera letra de su ID) -----
+    /*----------------------------------------------
+    | Metodo para hacer un backup de los articulos  |
+    | en 4 archivos diferentes segun la seccion a   |
+    | la que pertenecen (Primera letra de su ID)    |
+     ----------------------------------------------*/
     public void backupPorSeccion() {
         try (ObjectOutputStream oosPerifericos = new ObjectOutputStream(new FileOutputStream("Perifericos.dat"));
             ObjectOutputStream oosAlmacenamiento = new ObjectOutputStream(new FileOutputStream("Almacenamiento.dat"));
@@ -646,12 +657,12 @@ public class TiendaOnline implements Serializable {
         } 
         
         
-        /*
-        Para comprobar que funciona, verificamos que se han creado los 4 archivos en la carpeta
-        raiz del proyecto con la fecha y hora actual - 
-        ... y para comprobar el contenido de los archivos leeremos/imprimiremos "al vuelo" solo 1 de ellos
-         cuya seccion solicitamos por teclado.
-        */
+        /*----------------------------------------------------------------------------------------
+        | Para comprobar que funciona, verificamos que se han creado los 4 archivos en la carpeta |
+        | raiz del proyecto con la fecha y hora actual -                                          |
+        | ... y para comprobar el contenido de los archivos leeremos/imprimiremos "al vuelo"      |
+        | solo 1 de ellos cuya seccion solicitamos por teclado.                                   |
+         ----------------------------------------------------------------------------------------*/
                
         System.out.println("Teclea la Seccion de los articulos CUYO ARCHIVO QUIERES COMPROBAR:");        
         char seccion=sc.next().charAt(0);
@@ -683,9 +694,17 @@ public class TiendaOnline implements Serializable {
                 System.out.println(e.toString()); 
         } 
     }   
-
-    //  ------ Metodo para leer desde el archivo articulos.dat solo los articulos de una determinaad seccion introducida por teclado. -----
-    //  ------ Los articulos de la seccion elegida se van cargando en un arraylist auxiliar (articulosAux) y se muestran por pantalla. -----  
+    
+    
+    /*------------------------------------------------- 
+    |  Metodo para leer desde el archivo articulos.dat  |
+    |  solo los articulos de una determinaad seccion    |
+    |  introducida por teclado.                         |
+     ---------------------------------------------------
+    |  Los articulos de la seccion elegida se van       |
+    |  cargando en un arraylist auxiliar (articulosAux) |
+    |  y se muestran por pantalla.                      |
+     --------------------------------------------------*/  
     public void leerArchivosSeccion() {
         System.out.println("Teclea la Seccion de los articulos que quieres recuperar:");        
         String id=sc.next();

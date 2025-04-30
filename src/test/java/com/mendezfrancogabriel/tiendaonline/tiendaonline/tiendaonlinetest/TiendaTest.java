@@ -71,4 +71,15 @@ public class TiendaTest {
         assertEquals(2160, t.totalPedido(p5));
 
     }
+    
+    @Test
+    public void testTotalCliente(){
+        assertAll(
+            () -> assertEquals(3565, t.totalCliente(t.getClientes().get("80580845T"))),
+            () -> assertEquals(2370, t.totalCliente(t.getClientes().get("36347775R"))),
+            () -> assertEquals(2160, t.totalCliente(t.getClientes().get("63921307Y"))),
+            () -> assertEquals(580, t.totalCliente(t.getClientes().get("43211307Y"))),
+            () -> assertEquals(190, t.totalCliente(t.getClientes().get("53472775R")))
+        );
+    }
 }
