@@ -24,18 +24,22 @@ public class MetodosAuxTest {
     
     @BeforeAll
     public static void setUpClass() {
+        System.out.println("LO QUE HAGO AQUÍ VA DELANTE DE TODOS LOS TEST");
     }
     
     @AfterAll
     public static void tearDownClass() {
+        System.out.println("LO QUE HAGO AQUÍ VA DETRÁS DE TODOS LOS TEST");
     }
     
     @BeforeEach
     public void setUp() {
+        System.out.println("LO QUE HAGO AQUÍ VA DELANTE DE CADA TEST");
     }
     
     @AfterEach
     public void tearDown() {
+        System.out.println("LO QUE HAGO AQUÍ VA DETRÁS DE TODOS LOS TEST");
     }
     
     // TODO add test methods here.
@@ -44,6 +48,34 @@ public class MetodosAuxTest {
     // @Test
     // public void hello() {}
     
+    @Test
+    public void testEsInt() {
+       /* CON assertAll Junit nos indicará todos los errores que se produzcan
+        en cualquier assert individualmente */
+       
+        assertAll(
+            () -> assertTrue(MetodosAux.esInt("5"),"El 5 es int"),
+            () -> assertTrue(MetodosAux.esInt("-5"),"El -5 es int"),
+            () -> assertFalse(MetodosAux.esInt("5.5"),"5.5 NO es int"),
+            () -> assertFalse(MetodosAux.esInt("dxsfgsdrfg"),"dxsfgsdrfg NO es int")    
+        );
+        /* SIN assertAll Junit nos indicará ERROR en el test, pero sin mostrar 
+        indormación detallada de que asserts han fallado
+        
+      assertTrue(MetodosAux.esInt("5"),"El 5 es int");
+      assertTrue(MetodosAux.esInt("-5"),"El -5 es int");
+      assertFalse(MetodosAux.esInt("5.5"),"5.5 NO es int");
+      assertFalse(MetodosAux.esInt("dxsfgsdrfg"),"dxsfgsdrfg NO es int");
+       
+      LOS METODOS QUE DEVUELVEN UN VALOR BOOLEAN TAMBIÉN SE PUEDE PROBAR CON assertEquals 
+      
+      assertEquals(true, MetodosAux.esInt("5"),"El 5 es int");
+      assertEquals(true, MetodosAux.esInt("-5"),"El -5 es int");
+      assertEquals(false, MetodosAux.esInt("5.5"),"5.5 NO es int");
+      assertEquals(false, MetodosAux.esInt("dxsfgsdrfg"),"dxsfgsdrfg NO es int");
+      */
+    }
+   /* 
     @Test
     public void testEsInt(){
         System.out.println("Test para el metodo 'esInt'.");
@@ -56,7 +88,22 @@ public class MetodosAuxTest {
         assertFalse(MetodosAux.esInt(""), "Null no es Int.");
         assertFalse(MetodosAux.esInt("975409825743875540578068956"), "975409825743875540578068956 no es Int.");
     }
+    */
     
+    /**
+     * Test of esDouble method, of class MetodosAux.
+     */
+    @Test
+    public void testEsDouble() {
+        assertAll(
+            () -> assertTrue(MetodosAux.esDouble("5"),"El 5 es Double"),
+            () -> assertTrue(MetodosAux.esDouble("-5"),"El -5 es un Double"),
+            () -> assertTrue(MetodosAux.esDouble("5.5"),"El 5.5 es un Double"),
+            () -> assertTrue(MetodosAux.esDouble("-5.5"),"El -5.5 es un Double"),
+            () -> assertFalse(MetodosAux.esDouble("dxsfgsdrfg"), "dxsfgsdrfg NO es un double")
+        );
+    }
+    /*
     @Test
     public void testEsDouble(){
         System.out.println("Test para el metodo 'esDouble'.");
@@ -69,7 +116,20 @@ public class MetodosAuxTest {
         assertFalse(MetodosAux.esDouble(" "), "El espacio en blanco no es un Double.");
         assertFalse(MetodosAux.esDouble(""), "Null no es Double.");
     }
-    
+    */
+    @Test
+    public void testValidarDni() {
+        assertAll(
+           () -> assertTrue(MetodosAux.validarDni("50375889R"), "50375889R DNI válido" ),
+           () -> assertTrue(MetodosAux.validarDni("88067157L"), "88067157L DNI válido"),
+           () -> assertTrue(MetodosAux.validarDni("98080335D"), "98080335D DNI válido"),
+           () -> assertTrue(MetodosAux.validarDni("08194445M"), "08194445M DNI válido"),
+           () -> assertTrue(MetodosAux.validarDni("22443479X"),"22443479X DNI válido"),
+           () -> assertFalse(MetodosAux.validarDni(""),"Vacío no es DNI válido"),
+           () -> assertFalse(MetodosAux.validarDni("22443479R"),"22443479R no es DNI válido")
+        );
+    }
+    /*
     @Test
     public void testValidarDni(){
         System.out.println("Test para el metodo 'validarDni'.");
@@ -78,5 +138,6 @@ public class MetodosAuxTest {
         assertFalse(MetodosAux.validarDni("363477754R"), "El DNI no es valido.");
         assertFalse(MetodosAux.validarDni("36347775"), "El DNI no es valido.");
     }
+    */
     
 }
