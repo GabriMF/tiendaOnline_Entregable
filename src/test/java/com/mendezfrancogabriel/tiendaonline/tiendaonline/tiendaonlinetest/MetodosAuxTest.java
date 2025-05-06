@@ -4,12 +4,15 @@
  */
 package com.mendezfrancogabriel.tiendaonline.tiendaonline.tiendaonlinetest;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
 import com.mendezfrancogabriel.tiendaonline.tiendaonline.metodosAux.MetodosAux;
 
 /**
@@ -52,7 +55,7 @@ public class MetodosAuxTest {
     public void testEsInt() {
        /* CON assertAll Junit nos indicará todos los errores que se produzcan
         en cualquier assert individualmente */
-       
+       System.out.println("- - - - - - - - - - - testEsInt - - - - - - - - - - -");
         assertAll(
             () -> assertTrue(MetodosAux.esInt("5"),"El 5 es int"),
             () -> assertTrue(MetodosAux.esInt("-5"),"El -5 es int"),
@@ -95,6 +98,7 @@ public class MetodosAuxTest {
      */
     @Test
     public void testEsDouble() {
+        System.out.println("- - - - - - - - - - - testEsDouble - - - - - - - - - - -");
         assertAll(
             () -> assertTrue(MetodosAux.esDouble("5"),"El 5 es Double"),
             () -> assertTrue(MetodosAux.esDouble("-5"),"El -5 es un Double"),
@@ -119,6 +123,7 @@ public class MetodosAuxTest {
     */
     @Test
     public void testValidarDni() {
+        System.out.println("- - - - - - - - - - - testValidarDni - - - - - - - - - - -");
         assertAll(
            () -> assertTrue(MetodosAux.validarDni("50375889R"), "50375889R DNI válido" ),
            () -> assertTrue(MetodosAux.validarDni("88067157L"), "88067157L DNI válido"),
